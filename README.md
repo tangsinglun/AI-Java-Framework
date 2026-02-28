@@ -13,7 +13,7 @@
 
 This AI project is base on the source code which comes from the book `Constructing Intelligent Agents Using Java`, written
 by `Joseph P. Bigus and Jennifer Bigus`. The code has been revamped so that it can support the latest Java Framework, currently
-is `JDK 11`. The whole applicaton is split up into several parts, which needs to be call individually. For example: search Application,
+is `JDK 17`. The whole applicaton is split up into several parts, which needs to be call individually. For example: search Application,
 Rule base application or even neural network...etc.
 
 ## Setting-Environment
