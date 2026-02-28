@@ -25,9 +25,9 @@ Rule base application or even neural network...etc.
     2. To download Visual Source Code, please go to the link `https://code.visualstudio.com/download`.
     3. Install `Windows Subsystem for Linux`, for details how to setup, please visit this link `https://learn.microsoft.com/en-us/windows/wsl/install`.
     4. Install jdk for the linux enviroment. To install jdk, please follow the below steps:
-        a. sudo apt update
-        b. sudo apt install openjdk-x-jre (where x belongs to version number such as 8, 11, 17, or 18) 
-        c. sudo apt install openjdk-x-jdk (where x belongs to version number such as 8, 11, 17, or 18) 
+        * sudo apt update
+        * sudo apt install openjdk-x-jre (where x belongs to version number such as 8, 11, 17, or 18) 
+        * sudo apt install openjdk-x-jdk (where x belongs to version number such as 8, 11, 17, or 18) 
 
 ## Compile-SourceCode
 
