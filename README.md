@@ -33,7 +33,7 @@ Rule base application or even neural network...etc.
 
  * clone the project
     1. to clone the project, type in `git clone https://github.com/tangsinglun/AI-Java-Framework.git`
-    2. Move to the root folder `\AI`. type in the command `javac -d ./build/ ./AI-Java-Framework/**/*.java` to build the application.
+    2. Move to the root folder `\AI-Java-Framework`. type in the command `javac -d ./build/ ./AI-Java-Framework/**/*.java` to build the application.
 
 ## Run-Application
 
