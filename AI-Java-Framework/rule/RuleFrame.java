@@ -136,9 +136,9 @@ public class RuleFrame extends JFrame {
     jPanel1.setPreferredSize(new Dimension(400, 100));
     jPanel1.setLayout(null);
     forwardChainRadioButton.setText("Forward chain");
-    forwardChainRadioButton.setBounds(new Rectangle(19, 19, 103, 25));
+    forwardChainRadioButton.setBounds(new Rectangle(19, 19, 203, 25));
     backChainRadioButton.setText("Backward chain");
-    backChainRadioButton.setBounds(new Rectangle(17, 48, 154, 25));
+    backChainRadioButton.setBounds(new Rectangle(17, 48, 254, 25));
     jPanel2.setLayout(borderLayout2);
     HelpMenu.setText("Help");
     AboutMenuItem.setText("About");

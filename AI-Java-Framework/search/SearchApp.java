@@ -1,7 +1,7 @@
 package search;
 
 import javax.swing.UIManager;
-
+import java.awt.Font;
 
 /**
  * This is an application that demonstrates the five basic search
@@ -46,6 +46,15 @@ public class SearchApp extends Object {
   public static void main(String[] args) {
     try {
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+      UIManager.put("Label.font", new Font("SansSerif", Font.PLAIN, 18));
+      UIManager.put("Button.font", new Font("SansSerif", Font.PLAIN, 20));
+      UIManager.put("TextField.font", new Font("SansSerif", Font.PLAIN, 18));
+      UIManager.put("Menu.font", new Font("SansSerif", Font.PLAIN, 18));
+      UIManager.put("MenuItem.font", new Font("SansSerif", Font.PLAIN, 18));
+      UIManager.put("TextArea.font", new Font("SansSerif", Font.PLAIN, 18));
+      UIManager.put("RadioButtonMenuItem.font", new Font("SansSerif", Font.PLAIN, 18));
+      UIManager.put("JFrame.font", new Font("SansSerif", Font.PLAIN, 18));
+      UIManager.put("ComboBox.font", new Font("SansSerif", Font.PLAIN, 18));
     } catch (Exception e) {
       System.out.println("Error: unable to set look and feel");
     }

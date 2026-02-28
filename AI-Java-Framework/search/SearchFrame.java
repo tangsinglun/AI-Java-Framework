@@ -106,11 +106,11 @@ public class SearchFrame extends JFrame implements Runnable {
     this.setTitle("Search Application");
     jPanel2.setLayout(null);
     jLabel1.setText("Start node");
-    jLabel1.setBounds(new Rectangle(29, 10, 119, 17));
+    jLabel1.setBounds(new Rectangle(29, 10, 219, 17));
     jLabel2.setText("Goal state");
-    jLabel2.setBounds(new Rectangle(255, 12, 114, 17));
-    startComboBox.setBounds(new Rectangle(29, 32, 128, 24));
-    goalComboBox.setBounds(new Rectangle(254, 32, 128, 24));
+    jLabel2.setBounds(new Rectangle(255, 12, 214, 17));
+    startComboBox.setBounds(new Rectangle(29, 32, 228, 24));
+    goalComboBox.setBounds(new Rectangle(254, 32, 228, 24));
     FileMenu.setText("File");
     StartMenuItem.setText("Start");
     StartMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -169,15 +169,15 @@ public class SearchFrame extends JFrame implements Runnable {
       }
     });
     jLabel3.setText("Number of generations");
-    jLabel3.setBounds(new Rectangle(33, 140, 135, 17));
+    jLabel3.setBounds(new Rectangle(33, 140, 235, 17));
     jLabel4.setText("Genetic object class name");
-    jLabel4.setBounds(new Rectangle(31, 73, 175, 17));
-    GeneticObjClassComboBox.setBounds(new Rectangle(29, 95, 194, 24));
+    jLabel4.setBounds(new Rectangle(31, 73, 275, 17));
+    GeneticObjClassComboBox.setBounds(new Rectangle(29, 95, 294, 24));
     GeneticObjClassComboBox.addItem("search.GeneticSearchObj1");
     GeneticObjClassComboBox.addItem("search.GeneticSearchObj2");
 
     // Add user-defined genetic search object classe names here!
-    NumGenerationsComboBox.setBounds(new Rectangle(29, 157, 128, 24));
+    NumGenerationsComboBox.setBounds(new Rectangle(29, 157, 228, 24));
     
     NumGenerationsComboBox.addItem(Integer.valueOf(1).intValue());
     NumGenerationsComboBox.addItem(Integer.valueOf(25).intValue());
@@ -188,8 +188,8 @@ public class SearchFrame extends JFrame implements Runnable {
     NumGenerationsComboBox.addItem(Integer.valueOf(500).intValue());
     NumGenerationsComboBox.setSelectedItem(Integer.valueOf(100).intValue());
     jLabel5.setText("Populaton size");
-    jLabel5.setBounds(new Rectangle(289, 74, 109, 17));
-    PopulationSizeComboBox.setBounds(new Rectangle(288, 95, 96, 24));
+    jLabel5.setBounds(new Rectangle(289, 74, 209, 17));
+    PopulationSizeComboBox.setBounds(new Rectangle(288, 95, 196, 24));
     PopulationSizeComboBox.addItem(Integer.valueOf(10).intValue());
     PopulationSizeComboBox.addItem(Integer.valueOf(25).intValue());
     PopulationSizeComboBox.addItem(Integer.valueOf(50).intValue());
@@ -199,9 +199,9 @@ public class SearchFrame extends JFrame implements Runnable {
     PopulationSizeComboBox.addItem(Integer.valueOf(500).intValue());
     PopulationSizeComboBox.setSelectedItem(Integer.valueOf(100).intValue());
     jLabel6.setText("Fitness threshold");
-    jLabel6.setBounds(new Rectangle(288, 135, 109, 17));
+    jLabel6.setBounds(new Rectangle(288, 135, 209, 17));
     FitnessThresholdTextField.setText("20.0");
-    FitnessThresholdTextField.setBounds(new Rectangle(289, 157, 95, 24));
+    FitnessThresholdTextField.setBounds(new Rectangle(289, 157, 195, 24));
     radioButtonGroup.add(DFSRadioButtonMenuItem);
     radioButtonGroup.add(BFSRadioButtonMenuItem);
     radioButtonGroup.add(IteratedRadioButtonMenuItem);

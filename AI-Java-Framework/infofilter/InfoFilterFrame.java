@@ -285,6 +285,14 @@ public class InfoFilterFrame extends JFrame implements CIAgentEventListener {
     jMenu3.add(useFeedbackCheckBoxMenuItem);
     jMenu5.add(aboutMenuItem);
     jMenu2.add(cutMenuItem);
+
+    // Header
+    articleTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 18));
+
+    // Cells
+    articleTable.setFont(new Font("SansSerif", Font.PLAIN, 18));
+    articleTable.setRowHeight(24);
+
   }
 
 

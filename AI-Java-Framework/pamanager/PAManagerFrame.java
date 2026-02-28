@@ -174,6 +174,15 @@ public class PAManagerFrame extends JFrame implements CIAgentEventListener, Prop
     jScrollPane1.getViewport().add(traceTextArea, null);
     helpMenu.add(AboutMenuItem);
     this.setJMenuBar(menuBar1);
+
+
+    // Header
+    agentTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 18));
+
+    // Cells
+    agentTable.setFont(new Font("SansSerif", Font.PLAIN, 18));
+    agentTable.setRowHeight(24);
+
   }
 
 
