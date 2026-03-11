@@ -46,6 +46,9 @@ Rule base application or even neural network...etc.
     5. java infofilter.InfoFilterApp
     6. java marketplace.MarketplaceApp
     6. java Text.TextApp
+       * For the Text. The data files are located in the `/AI-JAVA-FRAMEWORK` folder. You can create your own label files.
+         I use `dog` as an example. Please note when adding labels, please put the most important or relevant keywords at the top most
+         of the list, those not important or relevant please put it at the end of the list.
 
  * You need data for training. the data files required has an .dfn and .dat file extension.
    All the data files resides in the AI-JAVA-FRAMEWORK folder. For specific application, for example if you are running the `Learn` application, all data files will be at the /AI-JAVA-FRAMEWORK/learn folder.

@@ -124,7 +124,6 @@ public class DogModel extends Object implements Serializable {
                 input = new StringTokenizer(line);
                 while (input.hasMoreTokens()) {
                     word = input.nextToken();
-                    index.add(numOfLabels++); 
                     labels.add(word.toUpperCase());                     
                 }
               } else {
@@ -133,7 +132,22 @@ public class DogModel extends Object implements Serializable {
             trace("\n");
             numOfLines++;
           }
-          Collections.shuffle(index);
+
+          
+          int position = labels.size();
+
+          position = createIndex(position);
+
+          Collections.shuffle(index.subList(0, index.size()));   
+          
+          position = createIndex(position); 
+
+          Collections.shuffle(index.subList((int)Math.round(labels.size() * 0.35), index.size()));    
+          
+          position = createIndex(position); 
+
+          Collections.shuffle(index.subList((int)Math.round(labels.size() * 0.7), index.size()));           
+          
           for (int i = 0; i < labels.size(); i++) {
               trace(String.valueOf(index.get(i)) + " - " + labels.get(i) + "\n ");
           } 
@@ -143,6 +157,22 @@ public class DogModel extends Object implements Serializable {
     } catch (IOException e) {
         e.printStackTrace();
     }
+  }
+
+
+   /**
+   * Generate the Index for the labels.
+   */
+
+  public int createIndex(int position) {
+
+          for (int i = (int)Math.round(labels.size() * 0.35); i > 0; i--) {
+              if (position == 0){
+                break;
+              }
+              index.add(position--); 
+          }  
+          return position;
   }
 
    /**
