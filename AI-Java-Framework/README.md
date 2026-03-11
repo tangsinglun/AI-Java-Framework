@@ -44,6 +44,7 @@ Rule base application or even neural network...etc.
     4. java pamanager.PAManagerApp
     5. java infofilter.InfoFilterApp
     6. java marketplace.MarketplaceApp
+    7. java Text.TextApp
 
  * You need data for training. the data files required has an .dfn and .dat file extension.
    All the data files resides in the AI-JAVA-FRAMEWORK folder. For specific application, for example if you are running the `Learn` application, all data files will be at the /AI-JAVA-FRAMEWORK/learn folder.
