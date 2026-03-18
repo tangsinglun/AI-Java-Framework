@@ -1,10 +1,10 @@
 package Text;
 
-// import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 import java.lang.Math;
 import java.io.*;
+import java.nio.file.*;
 
 
 /**
@@ -27,30 +27,24 @@ public class DogModel extends Object implements Serializable {
   protected Vector<String> words = new Vector<>();
   List<Integer> index = new ArrayList<>();
   transient public JTextArea textArea1 = new JTextArea();
-  protected String fileName = "";
-  protected int numOfLabels = 0;
   protected double mean = 0;
   protected double passageMean = 0;
   protected double proposedMean = 0;
   protected int wordsPerPassage = 0;
-  protected double thresHold = 0.07;
+  protected double thresHold = 0.02;
+  protected String baseFileName = "";
 
     /**
    * Creates a dog Model Object with the given file name.
    * 
    *
    * 
-   * @param fileName the text file from which the dataset is populated
+   * @param baseFileName the text file from which the dataset is populated
    */
-  public DogModel(String fileName) {
-    if (fileName.endsWith(".dfn") || fileName.endsWith(".dat")) {
-      int inx = fileName.indexOf('.');
+  public DogModel(String FileName) {
 
-      this.fileName = fileName.substring(0, inx);  // strip off the extension
-    } else {
-      this.fileName = fileName;  // text file name only 
-    }
-    numOfLabels = 0;                // start with no variables defined
+    FileName = Paths.get(FileName).getFileName().toString();   // "report_final.pdf"
+    baseFileName = FileName.contains(".") ? FileName.substring(0, FileName.lastIndexOf('.')) : FileName;              
   }
 
     /**
@@ -66,9 +60,9 @@ public class DogModel extends Object implements Serializable {
     double sumOfWordsMatch = 0;
 
     try {
-      in = new BufferedReader(new InputStreamReader(new FileInputStream(fileName+".dat")));
+      in = new BufferedReader(new InputStreamReader(new FileInputStream("/mnt/c/development/ai/AI-Java-Framework/" + baseFileName+".dat")));
     } catch (FileNotFoundException exc) {
-      trace("Error: Can't find file " + fileName + ".dat");
+      trace("Error: Can't find file " + baseFileName + ".dat");
     }
 
 
@@ -78,6 +72,14 @@ public class DogModel extends Object implements Serializable {
                 input = new StringTokenizer(line);
                 while (input.hasMoreTokens()) {
                     word = input.nextToken();
+
+                    //Check And Remove Apostrophee
+                    word = (word.endsWith(".")) ? word.substring(0, word.length() - 1) : word;
+                    word = (word.endsWith("!")) ? word.substring(0, word.length() - 1) : word;
+                    word = (word.endsWith(";")) ? word.substring(0, word.length() - 1) : word;
+                    word = (word.endsWith(".")) ? word.substring(0, word.length() - 1) : word;
+                    word = (word.endsWith("?")) ? word.substring(0, word.length() - 1) : word;
+
                     words.add(word.toUpperCase());
                     wordsPerPassage++;
                     labelIndex = labels.indexOf(word.toUpperCase());
@@ -92,8 +94,9 @@ public class DogModel extends Object implements Serializable {
             trace("\n");
             numOfLines++;
           }
-          trace("\nReading file " + fileName + ".dat with " + wordsPerPassage + " words per passage\n ");
-          trace("\nLoaded " + numOfLines + " lines into memory.\n");
+          trace("Reading file " + baseFileName + ".dat with " + wordsPerPassage + " words per passage\n ");
+          trace("Loaded " + numOfLines + " lines into memory.\n");
+          // trace("Index multiply factor: " + indexMultiplyFactor + ".\n");
           calculateProposedNormalDistribution();
           calculatePassageNormalDistribution(sumOfWordsMatch); 
           predictPassage();
@@ -113,9 +116,9 @@ public class DogModel extends Object implements Serializable {
     StringTokenizer input = null;
 
     try {
-      in = new BufferedReader(new InputStreamReader(new FileInputStream("/mnt/c/development/ai/AI-Java-Framework/" + "dog_" + "label.dat")));
+      in = new BufferedReader(new InputStreamReader(new FileInputStream("/mnt/c/development/ai/AI-Java-Framework/" + baseFileName + "_label.dat")));
     } catch (FileNotFoundException exc) {
-      trace("Error: Can't find file " + fileName + ".dat");
+      trace("Error: Can't find file " + baseFileName + "_label.dat");
     }
 
     try {
@@ -151,7 +154,7 @@ public class DogModel extends Object implements Serializable {
           for (int i = 0; i < labels.size(); i++) {
               trace(String.valueOf(index.get(i)) + " - " + labels.get(i) + "\n ");
           } 
-          trace("\nReading file " + fileName + ".dat with " + numOfLabels + " labels per datafile\n ");
+          trace("\nReading file " + baseFileName + "_label.dat with " + labels.size() + " labels per datafile\n ");
           trace("\nLoaded " + numOfLines + " lines into memory.\n");
           calculateNormalDistribution();  
     } catch (IOException e) {
@@ -170,8 +173,10 @@ public class DogModel extends Object implements Serializable {
               if (position == 0){
                 break;
               }
-              index.add(position--); 
+              index.add(position); 
+              position = position - 1;
           }  
+          
           return position;
   }
 
@@ -190,7 +195,13 @@ public class DogModel extends Object implements Serializable {
 
   public void calculateNormalDistribution() {
 
-    mean = (1 + (double)labels.size()) / 2;
+    int sumOfIndexLabel = 0;
+
+    for (int i = 0; i < labels.size(); i++) {
+        sumOfIndexLabel = sumOfIndexLabel + index.get(i);
+    }  
+
+    mean = sumOfIndexLabel / labels.size();
     trace("Mean is "+ String.valueOf(mean) + "\n ");
 
   }
@@ -210,10 +221,10 @@ public class DogModel extends Object implements Serializable {
    */
   public void predictPassage() {
           if (passageMean >= (proposedMean * thresHold)) {
-            trace("It is a dog. \n");
+            trace("The passage is related to "+ baseFileName + ". \n");
           } 
           else {
-            trace("It is not a dog. \n");            
+            trace("The passage is not related to "+ baseFileName + ". \n");            
           } 
   }
 
@@ -239,10 +250,5 @@ public class DogModel extends Object implements Serializable {
     textArea1 = textArea;
   }
 
-  /**
-   * Sets the file name for loading the dataset.
-   *
-   * @param fileName the file name for loading the data
-   */
 
 }

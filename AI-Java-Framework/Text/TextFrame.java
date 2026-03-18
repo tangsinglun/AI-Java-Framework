@@ -21,7 +21,6 @@ import java.util.*;
  *
  */
 public class TextFrame extends JFrame {
-  BorderLayout borderLayout1 = new BorderLayout();
   JMenuBar jMenuBar1 = new JMenuBar();
   JMenu FileMenu = new JMenu();
   JMenu DataMenu = new JMenu();
@@ -29,23 +28,15 @@ public class TextFrame extends JFrame {
   ButtonGroup buttonGroup = new ButtonGroup();
   JMenu HelpMenu = new JMenu();
   JMenuItem ExitMenuItem = new JMenuItem();
-  JPanel jPanel1 = new JPanel();
-  JPanel jPanel2 = new JPanel();
-  JPanel jPanel3 = new JPanel();
-  BorderLayout borderLayout2 = new BorderLayout();
-  JPanel jPanel4 = new JPanel();
-  JPanel jPanel5 = new JPanel();
-  JScrollPane jScrollPane1 = new JScrollPane();
+  JPanel jPanel = new JPanel();
+  BorderLayout borderLayout = new BorderLayout();
+  JScrollPane jScrollPane = new JScrollPane();
   JTextArea dataTextArea = new JTextArea();
-  JScrollPane jScrollPane2 = new JScrollPane();
   JTextArea traceTextArea = new JTextArea();
-  JLabel jLabel1 = new JLabel();
-  BorderLayout borderLayout3 = new BorderLayout();
-  BorderLayout borderLayout4 = new BorderLayout();
+  JLabel jLabel = new JLabel();
   JRadioButtonMenuItem DogModelRadioButtonMenuItem = new JRadioButtonMenuItem();
   JMenuItem LoadDataMenuItem = new JMenuItem();
   JMenuItem AboutMenuItem = new JMenuItem();
-  JLabel DataSetFileNameLabel = new JLabel();
 
 
   /**
@@ -67,9 +58,16 @@ public class TextFrame extends JFrame {
    * @throws Exception if any errors occur
    */
   private void jbInit() throws Exception {
-    this.getContentPane().setLayout(borderLayout1);
-    this.setSize(new Dimension(600, 479));
+     
+    jLabel.setText("Data Set:");
+    jPanel.setLayout(borderLayout);
+    jPanel.add(jLabel, null);
+    jPanel.add(jScrollPane, BorderLayout.CENTER);
+    jScrollPane.setViewportView(dataTextArea);
+    this.setSize(new Dimension(1280, 1024));
     this.setTitle("Text Application - Dog Model");
+    this.getContentPane().add(jPanel, BorderLayout.CENTER);
+
     FileMenu.setText("File");
     DataMenu.setText("Data");
     AlgorithmMenu.setText("Algorithm");
@@ -79,22 +77,13 @@ public class TextFrame extends JFrame {
         DogModelRadioButtonMenuItem_actionPerformed(e);
       }
     });
-    DataSetFileNameLabel.setBounds(new Rectangle(78, 10, 312, 25));
     buttonGroup.add(DogModelRadioButtonMenuItem);
 
     DogModelRadioButtonMenuItem.setSelected(true);
     HelpMenu.setText("Help");
     ExitMenuItem.setText("Exit");
-    jPanel2.setLayout(borderLayout2);
-    jPanel4.setMinimumSize(new Dimension(600, 200));
-    jPanel4.setPreferredSize(new Dimension(600, 200));
-    jPanel4.setLayout(borderLayout3);
-    jPanel1.setMinimumSize(new Dimension(600, 50));
-    jPanel1.setPreferredSize(new Dimension(600, 50));
-    jPanel1.setLayout(null);
-    jLabel1.setText("Data Set:");
-    jLabel1.setBounds(new Rectangle(15, 14, 69, 17));
-    jPanel5.setLayout(borderLayout4);
+
+
     LoadDataMenuItem.setText("Load...");
     LoadDataMenuItem.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(ActionEvent e) {
@@ -113,17 +102,6 @@ public class TextFrame extends JFrame {
     jMenuBar1.add(HelpMenu);
     AlgorithmMenu.add(DogModelRadioButtonMenuItem);
     FileMenu.add(ExitMenuItem);
-    this.getContentPane().add(jPanel1, BorderLayout.NORTH);
-    jPanel1.add(jLabel1, null);
-    jPanel1.add(DataSetFileNameLabel, null);
-    this.getContentPane().add(jPanel2, BorderLayout.CENTER);
-    jPanel2.add(jPanel4, BorderLayout.NORTH);
-    jPanel4.add(jScrollPane2, BorderLayout.CENTER);
-    jScrollPane2.getViewport().add(dataTextArea, null);
-    jPanel2.add(jPanel5, BorderLayout.CENTER);
-    jPanel5.add(jScrollPane1, BorderLayout.CENTER);
-    jScrollPane1.getViewport().add(traceTextArea, null);
-    this.getContentPane().add(jPanel3, BorderLayout.SOUTH);
     DataMenu.add(LoadDataMenuItem);
     HelpMenu.add(AboutMenuItem);
     setJMenuBar(jMenuBar1);
@@ -176,7 +154,7 @@ public class TextFrame extends JFrame {
       dogModel.setDisplay(dataTextArea);
       dogModel.loadDataFile(); 
       dogModel.loadPassageFile();          // load the data set
-      DataSetFileNameLabel.setText(dirName+fileName);
+      // DataSetFileNameLabel.setText(dirName+fileName);
       this.repaint();
     }
 
