@@ -25,13 +25,13 @@ public class DogModel extends Object implements Serializable {
   // data parameters
   protected Vector<String> labels = new Vector<>();
   protected Vector<String> words = new Vector<>();
-  List<Integer> index = new ArrayList<>();
+  protected List<Integer> index = new ArrayList<>();
   transient public JTextArea textArea1 = new JTextArea();
   protected double mean = 0;
   protected double passageMean = 0;
   protected double proposedMean = 0;
   protected int wordsPerPassage = 0;
-  protected double thresHold = 0.02;
+  protected double thresHold = 0;
   protected String baseFileName = "";
 
     /**
@@ -50,7 +50,7 @@ public class DogModel extends Object implements Serializable {
     /**
    * Reads the data from the passage defined by the data file.
    */
-  public void loadPassageFile() {
+  public void loadPassageFile(String baseFileName) {
     int numOfLines = 0;
     String word = "";
     StringTokenizer input = null;
@@ -99,7 +99,7 @@ public class DogModel extends Object implements Serializable {
           // trace("Index multiply factor: " + indexMultiplyFactor + ".\n");
           calculateProposedNormalDistribution();
           calculatePassageNormalDistribution(sumOfWordsMatch); 
-          predictPassage();
+          // predictPassage();
     } catch (IOException e) {
         e.printStackTrace();
     }
@@ -108,7 +108,7 @@ public class DogModel extends Object implements Serializable {
     /**
    * Reads the data from the file defined by the label file.
    */
-  public void loadDataFile() {
+  public void loadLabelDataFile(String baseFileName) {
     String line = null;
     BufferedReader in = null;
     int numOfLines = 0;
@@ -116,9 +116,9 @@ public class DogModel extends Object implements Serializable {
     StringTokenizer input = null;
 
     try {
-      in = new BufferedReader(new InputStreamReader(new FileInputStream("/mnt/c/development/ai/AI-Java-Framework/" + baseFileName + "_label.dat")));
+      in = new BufferedReader(new InputStreamReader(new FileInputStream("/mnt/c/development/ai/AI-Java-Framework/" + baseFileName + ".dat")));
     } catch (FileNotFoundException exc) {
-      trace("Error: Can't find file " + baseFileName + "_label.dat");
+      trace("Error: Can't find file " + baseFileName + ".dat");
     }
 
     try {
@@ -155,7 +155,7 @@ public class DogModel extends Object implements Serializable {
           for (int i = 0; i < labels.size(); i++) {
               trace(String.valueOf(index.get(i)) + " - " + labels.get(i) + "\n ");
           } 
-          trace("\nReading file " + baseFileName + "_label.dat with " + labels.size() + " labels per datafile\n ");
+          trace("\nReading file " + baseFileName + ".dat with " + labels.size() + " labels per datafile\n ");
           trace("\nLoaded " + numOfLines + " lines into memory.\n");
           calculateNormalDistribution();  
     } catch (IOException e) {
@@ -220,12 +220,12 @@ public class DogModel extends Object implements Serializable {
   /**
    * predict the passage subject.
    */
-  public void predictPassage() {
+  public boolean predictPassage(double passageMean, double proposedMean, double thresHold) {
           if (passageMean >= (proposedMean * thresHold)) {
-            trace("The passage is related to "+ baseFileName + ".\n");
+            return true;
           } 
           else {
-            trace("The passage is not related to "+ baseFileName + ".\n");            
+            return false;            
           } 
   }
 
@@ -251,5 +251,16 @@ public class DogModel extends Object implements Serializable {
     textArea1 = textArea;
   }
 
+  public double getNormalDistribution() {
+    return mean;
+  }
+
+  public double getPassageNormalDistribution() {
+    return passageMean;
+  }
+
+  public double getProposedNormalDistribution() {
+    return proposedMean;
+  }
 
 }

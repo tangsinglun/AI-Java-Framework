@@ -5,6 +5,8 @@ import java.awt.event.*;
 import javax.swing.*;
 // import java.io.*;
 import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
 
 
 /**
@@ -29,14 +31,19 @@ public class TextFrame extends JFrame {
   JMenu HelpMenu = new JMenu();
   JMenuItem ExitMenuItem = new JMenuItem();
   JPanel jPanel = new JPanel();
+  JPanel jPanel2 = new JPanel();
   BorderLayout borderLayout = new BorderLayout();
   JScrollPane jScrollPane = new JScrollPane();
   JTextArea dataTextArea = new JTextArea();
   JTextArea traceTextArea = new JTextArea();
-  JLabel jLabel = new JLabel();
   JRadioButtonMenuItem DogModelRadioButtonMenuItem = new JRadioButtonMenuItem();
   JMenuItem LoadDataMenuItem = new JMenuItem();
   JMenuItem AboutMenuItem = new JMenuItem();
+  JButton button = new JButton("Passage of Dog");
+  JButton button2 = new JButton("Passage of Dog and Vet");
+  double mean = 0;
+  double passageMean = 0;
+  double proposedMean = 0;
 
 
   /**
@@ -59,14 +66,20 @@ public class TextFrame extends JFrame {
    */
   private void jbInit() throws Exception {
      
-    jLabel.setText("Data Set:");
-    jPanel.setLayout(borderLayout);
-    jPanel.add(jLabel, null);
-    jPanel.add(jScrollPane, BorderLayout.CENTER);
+    jPanel.setLayout(null);
+    jPanel.setPreferredSize(new Dimension(1000, 300));  
+    jPanel2.setLayout(borderLayout);
+    jPanel2.setPreferredSize(new Dimension(1000, 700));
     jScrollPane.setViewportView(dataTextArea);
-    this.setSize(new Dimension(1280, 1024));
+    button.setBounds(0, 200, 250, 30); 
+    button2.setBounds(300, 200, 350, 30); 
+    jPanel.add(button);
+    jPanel.add(button2);
+    jPanel2.add(jScrollPane);
+    this.setSize(new Dimension(1000, 1000));
     this.setTitle("Text Application - Dog Model");
-    this.getContentPane().add(jPanel, BorderLayout.CENTER);
+    this.getContentPane().add(jPanel, BorderLayout.SOUTH);
+    this.getContentPane().add(jPanel2, BorderLayout.NORTH);
 
     FileMenu.setText("File");
     DataMenu.setText("Data");
@@ -87,7 +100,17 @@ public class TextFrame extends JFrame {
     LoadDataMenuItem.setText("Load...");
     LoadDataMenuItem.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        LoadDataMenuItem_actionPerformed(e);
+        LoadData_actionPerformed(e);
+      }
+    });
+    button.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        LoadData_actionPerformed(e);
+      }
+    });
+    button2.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        LoadMultiData_actionPerformed(e);
       }
     });
     AboutMenuItem.setText("About");
@@ -106,7 +129,6 @@ public class TextFrame extends JFrame {
     HelpMenu.add(AboutMenuItem);
     setJMenuBar(jMenuBar1);
   }
-
 
   /**
    * Processes window events and is overridden to exit when window closes.
@@ -138,7 +160,7 @@ public class TextFrame extends JFrame {
    *
    * @param e the ActionEvent that was generated
    */
-  void LoadDataMenuItem_actionPerformed(ActionEvent e) {
+  void LoadData_actionPerformed(ActionEvent e) {
     FileDialog dlg = new FileDialog(this, "Load Data Set", FileDialog.LOAD);
 
     dlg.setFile("*.dfn");
@@ -147,13 +169,83 @@ public class TextFrame extends JFrame {
     String fileName = null;
     dirName = dlg.getDirectory() ;
     fileName = dlg.getFile();
+    boolean passageCheck = false;
+    String baseFileName = fileName.contains(".") ? fileName.substring(0, fileName.lastIndexOf('.')) : fileName;
 
     if (fileName != null) {
       dataTextArea.setText("");      
       DogModel dogModel = new DogModel(dirName+fileName);
       dogModel.setDisplay(dataTextArea);
-      dogModel.loadDataFile(); 
-      dogModel.loadPassageFile();          // load the data set
+      dogModel.loadLabelDataFile("dog_label"); 
+      mean = dogModel.getNormalDistribution();
+      dogModel.loadPassageFile(baseFileName);          // load the data set
+      passageMean = dogModel.getPassageNormalDistribution();
+      proposedMean = dogModel.getProposedNormalDistribution();
+      passageCheck =  dogModel.predictPassage(passageMean, proposedMean, 0.05);
+
+      if (passageCheck) {
+        dataTextArea.append("This passage is related.\n");
+      } 
+      else {
+         dataTextArea.append("This passage is not related.\n");           
+      } 
+      this.repaint();
+    }
+
+  }
+
+
+    /**
+   * Gets the dataset filename and loads the dataset.
+   *
+   * @param e the ActionEvent that was generated
+   */
+  void LoadMultiData_actionPerformed(ActionEvent e) {
+    FileDialog dlg = new FileDialog(this, "Load Data Set", FileDialog.LOAD);
+    boolean passageCheck = false;
+    boolean passageCheck1 = false;
+
+    dlg.setFile("*.dfn");
+    dlg.setVisible(true);;
+    String dirName = null;
+    String fileName = null;
+    dirName = dlg.getDirectory() ;
+    fileName = dlg.getFile();
+    String baseFileName = fileName.contains(".") ? fileName.substring(0, fileName.lastIndexOf('.')) : fileName;
+
+    if (fileName != null) {
+      dataTextArea.setText("");      
+      DogModel dogModel = new DogModel(dirName+fileName);
+      dogModel.setDisplay(dataTextArea);
+      dogModel.loadLabelDataFile("dog_label"); 
+      mean = dogModel.getNormalDistribution();
+      dogModel.loadPassageFile(baseFileName);          // load the data set
+      passageMean = dogModel.getPassageNormalDistribution();
+      proposedMean = dogModel.getProposedNormalDistribution();
+      passageCheck =  dogModel.predictPassage(passageMean, proposedMean, 0.05);
+
+      dogModel.labels.clear();
+      dogModel.words.clear();
+      dogModel.index.clear();
+
+      dogModel.loadLabelDataFile("vet_label"); 
+      mean = dogModel.getNormalDistribution();
+      dogModel.loadPassageFile(baseFileName);          // load the data set
+      passageMean = dogModel.getPassageNormalDistribution();
+      proposedMean = dogModel.getProposedNormalDistribution();
+      passageCheck1 =  dogModel.predictPassage(passageMean, proposedMean, 0.02);
+
+      dataTextArea.append("First - "+ passageCheck + ".\n");
+      dataTextArea.append("Second - "+ passageCheck1 + ".\n");
+
+      if (passageCheck && passageCheck1) {
+        dataTextArea.append("This passage is related.\n");
+      } 
+      else {
+         dataTextArea.append("This passage is not related.\n");           
+      } 
+
+      // dogModel.loadLabelDataFile("vet_label"); 
       // DataSetFileNameLabel.setText(dirName+fileName);
       this.repaint();
     }
