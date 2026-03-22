@@ -94,8 +94,8 @@ public class DogModel extends Object implements Serializable {
             trace("\n");
             numOfLines++;
           }
-          trace("Reading file " + baseFileName + ".dat with " + wordsPerPassage + " words per passage\n ");
-          trace("Loaded " + numOfLines + " lines into memory.\n");
+          trace("\nReading file " + baseFileName + ".dat with " + wordsPerPassage + " words per passage\n");
+          trace("Loaded " + numOfLines + " lines into memory.\n\n");
           // trace("Index multiply factor: " + indexMultiplyFactor + ".\n");
           calculateProposedNormalDistribution();
           calculatePassageNormalDistribution(sumOfWordsMatch); 
@@ -125,14 +125,15 @@ public class DogModel extends Object implements Serializable {
         while ((line = in.readLine()) != null) {
               if (line != null) {
                 input = new StringTokenizer(line);
-                while (input.hasMoreTokens()) {
-                    word = input.nextToken();
-                    labels.add(word.toUpperCase());                     
+                if (input.countTokens() <= 2) {
+                    while (input.hasMoreTokens()) {
+                        word = input.nextToken();
+                        labels.add(word.toUpperCase());                     
+                    }
                 }
               } else {
                 break;
               }
-            trace("\n");
             numOfLines++;
           }
 
@@ -186,7 +187,7 @@ public class DogModel extends Object implements Serializable {
 
   public void calculateProposedNormalDistribution() {
     proposedMean = ((double)wordsPerPassage * (double)mean) / (double)labels.size();
-    trace("Proposed Mean is "+ String.valueOf(proposedMean) + "\n ");
+    trace("Proposed Mean is "+ String.valueOf(proposedMean) + "\n");
   }
 
    /**
@@ -202,7 +203,7 @@ public class DogModel extends Object implements Serializable {
     }  
 
     mean = sumOfIndexLabel / labels.size();
-    trace("Mean is "+ String.valueOf(mean) + "\n ");
+    trace("Mean is "+ String.valueOf(mean) + "\n\n");
 
   }
 
@@ -212,7 +213,7 @@ public class DogModel extends Object implements Serializable {
   public void calculatePassageNormalDistribution(double sumOfWordsMatch) {
 
     passageMean = (double)sumOfWordsMatch / (double)labels.size();
-    trace("Passage mean is "+ String.valueOf(passageMean) + "\n ");
+    trace("Passage mean is "+ String.valueOf(passageMean) + "\n");
 
   }
 
@@ -221,10 +222,10 @@ public class DogModel extends Object implements Serializable {
    */
   public void predictPassage() {
           if (passageMean >= (proposedMean * thresHold)) {
-            trace("The passage is related to "+ baseFileName + ". \n");
+            trace("The passage is related to "+ baseFileName + ".\n");
           } 
           else {
-            trace("The passage is not related to "+ baseFileName + ". \n");            
+            trace("The passage is not related to "+ baseFileName + ".\n");            
           } 
   }
 
