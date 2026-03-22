@@ -235,8 +235,8 @@ public class TextFrame extends JFrame {
       proposedMean = dogModel.getProposedNormalDistribution();
       passageCheck1 =  dogModel.predictPassage(passageMean, proposedMean, 0.02);
 
-      dataTextArea.append("First - "+ passageCheck + ".\n");
-      dataTextArea.append("Second - "+ passageCheck1 + ".\n");
+      dataTextArea.append("Passage dog related - "+ passageCheck + ".\n");
+      dataTextArea.append("Passage vet related - "+ passageCheck1 + ".\n");
 
       if (passageCheck && passageCheck1) {
         dataTextArea.append("This passage is related.\n");
