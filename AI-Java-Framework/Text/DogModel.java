@@ -33,6 +33,7 @@ public class DogModel extends Object implements Serializable {
   protected int wordsPerPassage = 0;
   protected double thresHold = 0;
   protected String baseFileName = "";
+  protected Hashtable<Integer,String> matchList = new Hashtable<Integer,String>();
 
     /**
    * Creates a dog Model Object with the given file name.
@@ -74,16 +75,13 @@ public class DogModel extends Object implements Serializable {
                     word = input.nextToken();
 
                     //Check And Remove Apostrophee
-                    word = (word.endsWith(".")) ? word.substring(0, word.length() - 1) : word;
-                    word = (word.endsWith("!")) ? word.substring(0, word.length() - 1) : word;
-                    word = (word.endsWith(";")) ? word.substring(0, word.length() - 1) : word;
-                    word = (word.endsWith(".")) ? word.substring(0, word.length() - 1) : word;
-                    word = (word.endsWith("?")) ? word.substring(0, word.length() - 1) : word;
+                    word = word.replaceAll("[^a-zA-Z0-9]", "");
 
                     words.add(word.toUpperCase());
                     wordsPerPassage++;
                     labelIndex = labels.indexOf(word.toUpperCase());
                     if (labelIndex != -1) {
+                      matchList.put(index.get(labelIndex),word);
                       sumOfWordsMatch = sumOfWordsMatch + index.get(labelIndex);
                     }
                     trace(word + " ");
@@ -97,8 +95,9 @@ public class DogModel extends Object implements Serializable {
           trace("\nReading file " + baseFileName + ".dat with " + wordsPerPassage + " words per passage\n");
           trace("Loaded " + numOfLines + " lines into memory.\n\n");
           // trace("Index multiply factor: " + indexMultiplyFactor + ".\n");
-          calculateProposedNormalDistribution();
-          calculatePassageNormalDistribution(sumOfWordsMatch); 
+          calculateProposedMean();
+          calculatePassageMean(sumOfWordsMatch); 
+          displayMatchList();
           // predictPassage();
     } catch (IOException e) {
         e.printStackTrace();
@@ -157,7 +156,7 @@ public class DogModel extends Object implements Serializable {
           } 
           trace("\nReading file " + baseFileName + ".dat with " + labels.size() + " labels per datafile\n ");
           trace("\nLoaded " + numOfLines + " lines into memory.\n");
-          calculateNormalDistribution();  
+          calculateMean();  
     } catch (IOException e) {
         e.printStackTrace();
     }
@@ -185,7 +184,7 @@ public class DogModel extends Object implements Serializable {
    * Calculate the propose normal distribution on poportion base on the passage.
    */
 
-  public void calculateProposedNormalDistribution() {
+  public void calculateProposedMean() {
     proposedMean = ((double)wordsPerPassage * (double)mean) / (double)labels.size();
     trace("Proposed Mean is "+ String.valueOf(proposedMean) + "\n");
   }
@@ -194,7 +193,7 @@ public class DogModel extends Object implements Serializable {
    * Calculate the normal distribution base on the label data file.
    */
 
-  public void calculateNormalDistribution() {
+  public void calculateMean() {
 
     int sumOfIndexLabel = 0;
 
@@ -210,7 +209,7 @@ public class DogModel extends Object implements Serializable {
    /**
    * Calculate the normal distribution base on the passage file.
    */
-  public void calculatePassageNormalDistribution(double sumOfWordsMatch) {
+  public void calculatePassageMean(double sumOfWordsMatch) {
 
     passageMean = (double)sumOfWordsMatch / (double)labels.size();
     trace("Passage mean is "+ String.valueOf(passageMean) + "\n");
@@ -227,6 +226,15 @@ public class DogModel extends Object implements Serializable {
           else {
             return false;            
           } 
+  }
+
+  public void displayMatchList() {
+        trace("\n\nMacthed Label List.\n");
+        for (Integer key : matchList.keySet()) {
+            trace("[" + key + "]-" + matchList.get(key) + "\n");
+        }
+        trace("\n\n\n");
+        matchList.clear();
   }
 
     /**
