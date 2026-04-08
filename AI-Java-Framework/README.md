@@ -48,6 +48,32 @@ Rule base application or even neural network...etc.
  * You need data for training. the data files required has an .dfn and .dat file extension.
    All the data files resides in the AI-JAVA-FRAMEWORK folder. For specific application, for example if you are running the `Learn` application, all data files will be at the /AI-JAVA-FRAMEWORK/learn folder.
 
+   1. The vehicles data set is to show how neural networks and decision trees can classify this data.
+      * vechicles.dfn
+      * vechicles.dat
+   2. The Xor data set is the standard test for back-propagation networks, because it is not a linearly seperable classification problem.
+      * Xor.dfn
+      * Xor.dat
+   3. The XorTree data set can be used with decision tree, because it defines the binary inputs as discrete variables.
+      * XorTree.dfn
+      * XorTree.dat
+   4. The Animal data set is a simple classification problem with a mix of discrete and continous input data.
+      * Animal.dfn
+      * Animal.dat
+   5. The Ramp2 data set is used to demonstrate the prediction capabilities of back-propagation networks.
+      * Ramp2.dfn
+      * Ramp2.dat
+   6. The Restaurant data set is used to test the decision tree algorithm.
+      * Resttree.dfn
+      * Resttree.dat
+   7. The Kmap1 data is used to test the Kohonen map neural network. It contains
+      points in four corners of a three-dimension space.
+      * Kmap1.dfn
+      * kmap1.dat
+   8. The ColorTree data set is used to test the decision tree learning algorithm. The color field completely identifies the class.
+      * ColorTree.dfn
+      * ColorTree.dat
+
 * Code References
     * [GitHub](https://github.com/)
     * [WSL](https://learn.microsoft.com/en-us/windows/wsl/install)
