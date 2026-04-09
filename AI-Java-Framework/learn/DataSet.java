@@ -265,6 +265,13 @@ public class DataSet extends Object implements Serializable {
       trace("\n Record " + recInx + ": ");
       for (int i = 0; i < fieldsPerRec; i++) {
         tempRec[i] = input.nextToken();
+
+        for (String key : variableList.keySet()) {
+            if (variableList.get(key).column == i) {
+              variableList.get(key).setLabels(tempRec[i]);
+            }
+        }
+    
         ((Variable) fieldList.elementAt(i)).computeStatistics(tempRec[i]);
         trace(tempRec[i] + " ");
       }
