@@ -1,0 +1,35 @@
+AI agents hold the promise of automatically moving data between systems and triggering decisions, but in some cases, they can act without a clear record of what, when, and why they undertook their tasks.
+
+That has the potential to create a governance problem, for which IT leaders are ultimately responsible. If an organisation can’t trace an agent’s actions and don’t have proper control over its authority, leaders can’t prove that a system is operating safely or even lawfully to regulators.
+
+That’s an issue set to become more important from August this year, as enforcement of the EU AI Act kicks in. According to the text of the Act, there will be substantial penalties for failures of governance relating to AI, especially when used in high-risk areas such as when personally-identifiable information is processed, or financial operations take place.
+
+What IT leaders need to consider in the EU
+Several steps can be taken to alleviate high levels of risk, and of these, the ones that stand out for consideration include agent identity, comprehensive logs, policy checks, human oversight, rapid revocation, the availability of documentation from vendors, and the formulation of evidence for presentation to regulators.
+
+There are several options decision makers can consider that will help create the record of activities undertaken by agentic systems. For example, a Python SDK (software development kit), Asqav, can sign each agent’s action cryptographically and link all records to an immutable hash chain – the type of technique that’s more associated with blockchain technology. If someone or something changes or removes a record, verification of the chain fails.
+
+For governance teams, using a verbose, centralised, possibly-encrypted system of record for all agentic AIs is a measure that provides data well beyond the scattered text logs produced by individual software platforms. Regardless of the technical details of how records are made and kept, IT leaders need to see exactly where, when, and how agentic instances are acting throughout the enterprise.
+
+Many organisations fail at this first step in any recording of automated, AI-driven activity. It’s necessary to keep a registry of every agent in operation, with each uniquely identified, plus records of its capabilities and granted permissions. This ‘agentic asset list’ ties neatly into the requirements of the EU AI Act’s article 9, which states:
+
+Article 9: For high-risk areas, AI risk management has to be an ongoing, evidence-based process built into every stage of deployment (development, preparation, production), and be under constant review.
+Furthermore, decision-makers need to be aware of the Act’s Article 13:
+
+High-risk AI systems have to be designed in such a way that those deploying them can understand a system’s output. Thus, an AI system from a third-party must be interpretable by its users (not an opaque code blob), and should be supplied with enough documentation to ensure its safe and lawful use.
+This requirement means the choice of model and its methods of deployment are both technical and regulatory considerations.
+
+Putting the brakes on
+It’s important for any agentic deployment to offer a facility for the revocation of an AI’s operating role, preferably within a matter of seconds. The ability to revoke quickly should be part of emergency response processes. Revocation options should include the immediate removal of privileges, immediate ceasing of API access, and the flushing of queued tasks.
+
+The presence of human oversight, combined with the presentation of enough context for humans to make informed decisions, means that human operators must be able to reject any proposed action. It’s not considered adequate for the person reviewing a decision to see only a prompt or a confidence score. Effective oversight needs information around context, every agent’s authority, and time enough to intervene to prevent mis-steps.
+
+Multi-agent considerations
+While every agent’s action should be recorded automatically and retained, multi-agent processes are particularly complex to track, as failures can take place among chains of agents. It’s therefore important for security policies to be tested during the development of any system that intends to utilise multiple agents.
+
+Finally, governing authorities may require logs and technical documentation at any time, and will certainly need them after any incident they have been made aware of.
+
+Conclusion
+The question to be considered by IT leaders considering using AI on sensitive data or in high-risk environments is whether every aspect of the technology can be identified, constrained by policy, audited, interrupted, and explained. If the answer is unclear, governance is not yet in place.
+
+(Image source: “Last Judgement” by Lawrence OP is licensed under CC BY-NC-ND 2.0. To view a copy of this license,

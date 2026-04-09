@@ -46,10 +46,9 @@ public class NewsArticle {
    *
    */
   void readArticle(String fileName) {
-    File f = new File(fileName);
+    File f = new File("../AI-Java-Framework/infofilter/" + fileName);
     int size = (int) f.length();
     // int bytesRead = 0;
-
     try {
       FileInputStream in = new FileInputStream(f);
       byte[] data = new byte[size];

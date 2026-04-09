@@ -223,6 +223,7 @@ public class FilterAgent extends CIAgent {
    *
    */
   void score(NewsArticle article, int filterType) {
+    // System.out.println(article.body);
     article.counts = countWordMultiKeys(keywords, article.body);
     int size = article.counts.length;
     int sum = 0;

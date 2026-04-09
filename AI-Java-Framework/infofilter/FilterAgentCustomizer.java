@@ -114,7 +114,7 @@ public class FilterAgentCustomizer extends JDialog implements Customizer {
       }
     });
     removeButton.setText("Remove");
-    removeButton.setBounds(new Rectangle(277, 211, 87, 27));
+    removeButton.setBounds(new Rectangle(277, 211, 150, 27));
     removeButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(ActionEvent e) {
         removeButton_actionPerformed(e);
@@ -123,7 +123,7 @@ public class FilterAgentCustomizer extends JDialog implements Customizer {
     jPanel1.setLayout(flowLayout1);
     flowLayout1.setHgap(15);
     changeButton.setText("Change");
-    changeButton.setBounds(new Rectangle(277, 147, 84, 27));
+    changeButton.setBounds(new Rectangle(277, 147, 150, 27));
     changeButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(ActionEvent e) {
         changeButton_actionPerformed(e);
@@ -274,7 +274,7 @@ public class FilterAgentCustomizer extends JDialog implements Customizer {
    *
    */
   private void setKeywords(String[] keys) {
-    Vector<String> keywords = new Vector<String>();
+    keywords = new Vector<String>();
     for (int i = 0; i < keys.length; i++) {
       keywords.addElement(keys[i]);
     }

@@ -74,6 +74,10 @@ Rule base application or even neural network...etc.
    8. The ColorTree data set is used to test the decision tree learning algorithm. The color field completely identifies the class.
       * ColorTree.dfn
       * ColorTree.dat
+ * For infofilter you need to Load an Article. There are no requirements for the file name and file extension. For an example, I have provide 2 news article for you to load.
+      * AI.news
+      * war.news
+   You can find it in the infofilter folder.
 
 * Code References
     * [GitHub](https://github.com/)
