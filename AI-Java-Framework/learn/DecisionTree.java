@@ -110,7 +110,8 @@ public class DecisionTree implements Serializable {
         maxIndex = i;
       }  /* endif */
     }    /* endfor */
-    return classVar.getLabel(maxIndex);
+    
+    return classVar.labels.elementAt(maxIndex);
   }
 
 
@@ -182,9 +183,8 @@ public class DecisionTree implements Serializable {
     double numRecs = examples.size();
 
     for (int i = 0; i < numValues; i++) {
-      String value = variable.getLabel(i);  // get discrete value
+      String value = variable.labels.elementAt(i);  // get discrete value
       Enumeration<String[]> Enum = examples.elements();
-
       while (Enum.hasMoreElements()) {
         String record[] = (String[]) Enum.nextElement();  // get next record
 
@@ -300,13 +300,14 @@ public class DecisionTree implements Serializable {
       int numValues = best.labels.size();
 
       for (int i = 0; i < numValues; i++) {
-        Vector<String[]> examples1 = subset(examples, best, best.getLabel(i));
+        
+        Vector<String[]> examples1 = subset(examples, best, best.labels.elementAt(i));
         Hashtable<?,?> variables1 = (Hashtable<?,?>) variables.clone();
 
         variables1.remove(best.getName());
         Node subTree = buildDecisionTree(examples1, variables1, new Node(majority(examples1)));
 
-        tree.addChild(subTree, best.name + "=" + best.getLabel(i));
+        tree.addChild(subTree, best.name + "=" + best.labels.elementAt(i));
       }                                     /* endfor */
     }
     return tree;
